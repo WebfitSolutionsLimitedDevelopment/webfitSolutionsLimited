@@ -8,22 +8,39 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { toast, Toaster } from 'sonner'
 import {
   Code2, Smartphone, Cloud, ShoppingCart, Layout, LineChart, ArrowRight, Phone, Mail, MapPin,
-  CheckCircle2, Sparkles, Users, Clock, Shield, Rocket, Lightbulb, Handshake, Menu, X,
-  ExternalLink, ChevronDown, Globe, Zap, Heart
+  CheckCircle2, Sparkles, Users, Shield, Rocket, Lightbulb, Handshake, Menu,
+  Globe, Zap, Heart, Quote, Star, ChevronDown, Calendar, Clock, ArrowUpRight,
 } from 'lucide-react'
 
-const LOGO_URL = 'https://customer-assets.emergentagent.com/job_9e1be266-7281-40e0-9ad8-d984708adecf/artifacts/gxak5mjz_webfit%20Solutions%20Limited%20New%20Logo.png'
+/* ============================================================================
+   SITE CONFIG — EDIT THIS BLOCK TO UPDATE WEBSITE CONTENT
+   All content below is placeholder and fully configurable.
+   ============================================================================ */
+
+const SITE = {
+  company: 'Webfit Solutions Limited',
+  shortName: 'Webfit Solutions',
+  tagline: 'Software & Digital Solutions',
+  logoUrl: 'https://customer-assets.emergentagent.com/job_9e1be266-7281-40e0-9ad8-d984708adecf/artifacts/gxak5mjz_webfit%20Solutions%20Limited%20New%20Logo.png',
+  website: 'webfitt.com',
+  websiteUrl: 'https://webfitt.com',
+  address: 'Sandringham Road, Auckland, New Zealand',
+  phone: '022 605 9422',
+  phoneRaw: '0226059422',
+  email: 'hello@webfitt.com', // TODO: update to real inbox
+  kiwiTag: '100% Kiwi software partner in Aotearoa',
+}
 
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
-  { label: 'Work', href: '#work' },
   { label: 'Team', href: '#team' },
+  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'Blog', href: '#blog' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ]
@@ -37,75 +54,99 @@ const SERVICES = [
   { icon: LineChart, title: 'Digital Strategy & Consulting', desc: 'We translate business goals into a clear technology roadmap — so every dollar you invest works harder.' },
 ]
 
-const PROJECTS = [
-  {
-    title: 'Enterprise Analytics Dashboard',
-    tag: 'SaaS Platform',
-    desc: 'Built a real-time analytics platform that cut reporting time by 85% for a fast-growing NZ distributor.',
-    image: 'https://images.unsplash.com/photo-1660144425546-b07680e711d1',
-    stack: ['Next.js', 'Node.js', 'PostgreSQL'],
-  },
-  {
-    title: 'Retail Mobile Commerce App',
-    tag: 'Mobile App',
-    desc: 'iOS & Android app that drove a 3.2x increase in repeat orders for an Auckland retail chain.',
-    image: 'https://images.unsplash.com/photo-1597075095400-fb3f0de70140',
-    stack: ['React Native', 'Stripe', 'Firebase'],
-  },
-  {
-    title: 'Operations Management System',
-    tag: 'Custom Software',
-    desc: 'Replaced 6 disconnected spreadsheets with one system — saving 40+ team hours every week.',
-    image: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f',
-    stack: ['React', 'Java', 'AWS'],
-  },
-  {
-    title: 'Booking & Scheduling Platform',
-    tag: 'Web App',
-    desc: 'End-to-end booking platform handling 10k+ monthly appointments with zero double-bookings.',
-    image: 'https://images.unsplash.com/photo-1665211097563-163d6be45d67',
-    stack: ['Next.js', 'MongoDB', 'Tailwind'],
-  },
-  {
-    title: 'B2B SaaS Subscription Product',
-    tag: 'SaaS',
-    desc: 'Launched a subscription SaaS from concept to paying customers in under 14 weeks.',
-    image: 'https://images.unsplash.com/photo-1648134859182-98df6e93ef58',
-    stack: ['TypeScript', 'Stripe', 'GCP'],
-  },
-  {
-    title: 'Field Service Mobile Solution',
-    tag: 'Mobile App',
-    desc: 'Offline-first app for field technicians — jobs completed 27% faster with instant sync.',
-    image: 'https://images.unsplash.com/photo-1537267470831-2d781a5d2ae6',
-    stack: ['Flutter', 'Node.js', 'Azure'],
-  },
-]
-
 const TEAM = [
   {
     name: 'Sangita Gupta',
     role: 'Founder & Managing Director',
+    image: 'https://images.pexels.com/photos/7580822/pexels-photo-7580822.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // TODO: replace with real photo
     shortBio: "Founder and Managing Director of Webfit Solutions Limited. Based in Auckland, holds a Master's in Science and leads both strategy and operations.",
     fullBio: "Sangita Gupta, the Founder and Managing Director of Webfit Solutions Limited, brings a unique blend of professional expertise and personal insight to the company. Based in Auckland, she holds a Master's Degree in Science and is a mother of two. Sangita understands the connection between humans and technology and focuses on delivering solutions that improve accuracy and usability. She leads both strategy and operations, ensuring high-quality software delivery.",
-    initials: 'SG',
-    gradient: 'from-blue-500 to-cyan-500',
   },
   {
     name: 'Sheetal Bhusari',
     role: 'Technology Leader',
+    image: 'https://images.pexels.com/photos/7581115/pexels-photo-7581115.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', // TODO: replace with real photo
     shortBio: 'Over 20 years of software development experience across leading multinational corporations before becoming an entrepreneur.',
     fullBio: 'With over 20 years of experience in software development, Sheetal has worked with leading multinational corporations before becoming an entrepreneur. Her expertise and innovative approach have driven many successful projects. At Webfit Solutions, she focuses on delivering high-quality, practical technology solutions.',
-    initials: 'SB',
-    gradient: 'from-sky-500 to-blue-600',
   },
   {
     name: 'Aarti Jangid',
     role: 'Senior Software Engineer',
+    image: 'https://images.unsplash.com/photo-1580643735948-c52d25d9c07d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800', // TODO: replace with real photo
     shortBio: '10+ years in software development, specialising in Java technologies and delivering solutions across multiple domains.',
     fullBio: 'Aarti brings over 10 years of experience in software development. She specializes in Java technologies and has delivered high-quality solutions across multiple domains. She focuses on solving complex problems using modern technologies.',
-    initials: 'AJ',
-    gradient: 'from-cyan-500 to-blue-500',
+  },
+]
+
+// TESTIMONIALS — replace with real client quotes/photos/logos
+const TESTIMONIALS = [
+  {
+    quote: 'The Webfit team delivered exactly what we needed — on time and on budget. Their senior engineers felt like part of our own team from day one.',
+    name: 'Client Name',
+    role: 'Operations Manager',
+    company: 'Placeholder Co. Ltd',
+    avatar: '', // optional — leave '' to use initials
+    rating: 5,
+  },
+  {
+    quote: 'We tried two other agencies before finding Webfit. The difference in quality, communication and outcomes was night and day. Highly recommended.',
+    name: 'Client Name',
+    role: 'Founder & CEO',
+    company: 'Placeholder Retail NZ',
+    avatar: '',
+    rating: 5,
+  },
+  {
+    quote: 'Proper Kiwi team, proper Kiwi communication, proper Kiwi results. They just get it. Our new platform runs beautifully and our team loves it.',
+    name: 'Client Name',
+    role: 'Head of Digital',
+    company: 'Placeholder Group',
+    avatar: '',
+    rating: 5,
+  },
+]
+
+// CLIENTS — replace with real client/partner names or logo URLs
+const CLIENTS = [
+  { name: 'Client Logo 1', logo: '' },
+  { name: 'Client Logo 2', logo: '' },
+  { name: 'Client Logo 3', logo: '' },
+  { name: 'Client Logo 4', logo: '' },
+  { name: 'Client Logo 5', logo: '' },
+  { name: 'Client Logo 6', logo: '' },
+]
+
+// BLOG / INSIGHTS — add as many posts as you like
+const BLOG_POSTS = [
+  {
+    slug: 'how-kiwi-businesses-choose-software-partner',
+    title: 'How Kiwi businesses should choose a software partner in 2025',
+    excerpt: 'Five practical questions every NZ business owner should ask before signing with a software vendor — and the red flags to watch out for.',
+    category: 'Insights',
+    author: 'Webfit Team',
+    date: 'Coming soon',
+    readTime: '4 min read',
+    image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=900',
+  },
+  {
+    slug: 'custom-software-vs-off-the-shelf',
+    title: 'Custom software vs off-the-shelf: what actually makes sense for SMBs',
+    excerpt: 'A clear, no-jargon breakdown of when custom software pays back and when a SaaS subscription is the smarter call.',
+    category: 'Guide',
+    author: 'Webfit Team',
+    date: 'Coming soon',
+    readTime: '6 min read',
+    image: 'https://images.unsplash.com/photo-1660144425546-b07680e711d1?w=900',
+  },
+  {
+    slug: 'case-study-retail-mobile-app',
+    title: 'Case study: 3.2x repeat orders with a custom retail mobile app',
+    excerpt: 'How we helped an Auckland retailer grow repeat revenue by shipping a simple, focused iOS + Android app in 12 weeks.',
+    category: 'Case Study',
+    author: 'Webfit Team',
+    date: 'Coming soon',
+    readTime: '5 min read',
+    image: 'https://images.unsplash.com/photo-1597075095400-fb3f0de70140?w=900',
   },
 ]
 
@@ -126,6 +167,10 @@ const PROCESS_STEPS = [
   { n: '05', icon: Sparkles, title: 'Grow', desc: 'Ongoing support, improvements and new features as your business evolves.' },
 ]
 
+/* ============================================================================
+   COMPONENTS
+   ============================================================================ */
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -141,14 +186,14 @@ const Header = () => {
         <div className="flex h-16 md:h-20 items-center justify-between">
           <a href="#home" className="flex items-center gap-2">
             <div className="relative h-10 w-10 md:h-12 md:w-12">
-              <Image src={LOGO_URL} alt="Webfit Solutions Logo" fill className="object-contain" priority />
+              <Image src={SITE.logoUrl} alt={`${SITE.shortName} Logo`} fill className="object-contain" priority />
             </div>
             <div className="hidden sm:block leading-tight">
-              <div className="text-base md:text-lg font-bold text-slate-900">Webfit Solutions</div>
-              <div className="text-[10px] md:text-xs text-slate-500 -mt-0.5">Software &amp; Digital Solutions</div>
+              <div className="text-base md:text-lg font-bold text-slate-900">{SITE.shortName}</div>
+              <div className="text-[10px] md:text-xs text-slate-500 -mt-0.5">{SITE.tagline}</div>
             </div>
           </a>
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-7">
             {NAV_LINKS.map(l => (
               <a key={l.href} href={l.href} className="text-sm font-medium text-slate-700 hover:text-primary transition-colors relative group">
                 {l.label}
@@ -204,7 +249,7 @@ const Hero = () => (
               <a href="#contact">Book a Free Consultation <ArrowRight className="ml-2 h-5 w-5" /></a>
             </Button>
             <Button asChild variant="outline" size="lg" className="h-12 px-8 text-base border-2 border-slate-300 hover:border-primary hover:text-primary">
-              <a href="#work">See Our Work</a>
+              <a href="#services">Explore Our Services</a>
             </Button>
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 text-sm text-slate-600">
@@ -267,75 +312,23 @@ const Services = () => (
   </section>
 )
 
-const Work = () => {
-  const [selected, setSelected] = useState(null)
-  return (
-    <section id="work" className="py-20 md:py-28 bg-slate-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <Badge variant="outline" className="mb-4 text-primary border-blue-200 bg-blue-50">Recent Work</Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">Projects that <span className="gradient-text">move the needle</span></h2>
-          <p className="mt-4 text-lg text-slate-600">A small selection of recent work delivered by our team — real outcomes, real customers.</p>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {PROJECTS.map((p, i) => (
-            <Card key={i} className="group overflow-hidden border-slate-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1">
-              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                <Image src={p.image} alt={p.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute top-3 left-3">
-                  <Badge className="bg-white/90 text-slate-900 hover:bg-white backdrop-blur-sm">{p.tag}</Badge>
-                </div>
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{p.title}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-4">{p.desc}</p>
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {p.stack.map(s => <span key={s} className="text-xs bg-slate-100 text-slate-700 px-2 py-1 rounded-md">{s}</span>)}
-                </div>
-                <Button variant="ghost" size="sm" onClick={() => setSelected(p)} className="text-primary hover:text-primary hover:bg-blue-50 -ml-3">
-                  View Details <ArrowRight className="ml-1 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-      <Dialog open={!!selected} onOpenChange={(o) => !o && setSelected(null)}>
-        <DialogContent className="sm:max-w-2xl">
-          {selected && (
-            <>
-              <div className="relative aspect-video rounded-lg overflow-hidden -mt-2">
-                <Image src={selected.image} alt={selected.title} fill className="object-cover" />
-              </div>
-              <DialogHeader>
-                <Badge className="w-fit bg-blue-50 text-primary hover:bg-blue-50 mb-1">{selected.tag}</Badge>
-                <DialogTitle className="text-2xl">{selected.title}</DialogTitle>
-                <DialogDescription className="text-base text-slate-600 leading-relaxed">{selected.desc}</DialogDescription>
-              </DialogHeader>
-              <div className="flex flex-wrap gap-2">
-                {selected.stack.map(s => <Badge key={s} variant="secondary">{s}</Badge>)}
-              </div>
-              <Button asChild className="gradient-bg text-white w-full">
-                <a href="#contact">Start a Similar Project <ArrowRight className="ml-2 h-4 w-4" /></a>
-              </Button>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
-    </section>
-  )
-}
-
 const TeamCard = ({ member }) => {
   const [open, setOpen] = useState(false)
   return (
     <Card className="group text-center overflow-hidden border-slate-200 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
       <CardContent className="p-8">
-        <div className="relative mx-auto mb-5">
-          <div className={`h-28 w-28 mx-auto rounded-full bg-gradient-to-br ${member.gradient} flex items-center justify-center shadow-lg ring-4 ring-white"`}>
-            <span className="text-3xl font-bold text-white">{member.initials}</span>
+        <div className="relative mx-auto mb-5 w-32 h-32">
+          <div className="absolute -inset-2 gradient-bg rounded-full opacity-20 blur-md"></div>
+          <div className="relative h-32 w-32 rounded-full overflow-hidden ring-4 ring-white shadow-lg bg-gradient-to-br from-blue-100 to-sky-100">
+            {member.image ? (
+              <Image src={member.image} alt={member.name} fill className="object-cover" sizes="128px" />
+            ) : (
+              <div className="h-full w-full flex items-center justify-center text-3xl font-bold text-primary">
+                {member.name.split(' ').map(n => n[0]).join('')}
+              </div>
+            )}
           </div>
-          <div className="absolute -bottom-1 right-1/2 translate-x-14 h-8 w-8 rounded-full bg-white border-2 border-blue-500 flex items-center justify-center">
+          <div className="absolute -bottom-1 right-0 h-8 w-8 rounded-full bg-white border-2 border-blue-500 flex items-center justify-center">
             <Sparkles className="h-4 w-4 text-primary" />
           </div>
         </div>
@@ -354,7 +347,7 @@ const TeamCard = ({ member }) => {
 }
 
 const Team = () => (
-  <section id="team" className="py-20 md:py-28 bg-white">
+  <section id="team" className="py-20 md:py-28 bg-slate-50">
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto text-center mb-16">
         <Badge variant="outline" className="mb-4 text-primary border-blue-200 bg-blue-50">Meet The Team</Badge>
@@ -363,6 +356,62 @@ const Team = () => (
       </div>
       <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {TEAM.map(m => <TeamCard key={m.name} member={m} />)}
+      </div>
+    </div>
+  </section>
+)
+
+const Testimonials = () => (
+  <section id="testimonials" className="py-20 md:py-28 bg-white">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto text-center mb-16">
+        <Badge variant="outline" className="mb-4 text-primary border-blue-200 bg-blue-50">Client Love</Badge>
+        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">Trusted by <span className="gradient-text">Kiwi businesses</span></h2>
+        <p className="mt-4 text-lg text-slate-600">We measure success by the outcomes our clients achieve.</p>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-6 mb-16">
+        {TESTIMONIALS.map((t, i) => (
+          <Card key={i} className="relative border-slate-200 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+            <CardContent className="p-7">
+              <Quote className="h-8 w-8 text-primary/20 mb-4" />
+              <div className="flex gap-0.5 mb-4">
+                {Array.from({ length: t.rating || 5 }).map((_, idx) => (
+                  <Star key={idx} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              <p className="text-slate-700 leading-relaxed mb-6 italic">&ldquo;{t.quote}&rdquo;</p>
+              <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
+                <div className="h-11 w-11 rounded-full bg-gradient-to-br from-blue-500 to-sky-500 flex items-center justify-center text-white font-bold text-sm overflow-hidden">
+                  {t.avatar ? (
+                    <Image src={t.avatar} alt={t.name} width={44} height={44} className="object-cover" />
+                  ) : (
+                    t.name.split(' ').map(n => n[0]).join('')
+                  )}
+                </div>
+                <div>
+                  <div className="font-semibold text-slate-900 text-sm">{t.name}</div>
+                  <div className="text-xs text-slate-500">{t.role}{t.company ? ` · ${t.company}` : ''}</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <div className="border-t border-b border-slate-200 py-10">
+        <p className="text-center text-sm uppercase tracking-wider text-slate-500 font-medium mb-8">Working with leading Kiwi businesses</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 items-center">
+          {CLIENTS.map((c, i) => (
+            <div key={i} className="flex items-center justify-center h-16 rounded-lg bg-slate-50 border border-dashed border-slate-200 text-slate-400 text-xs px-4">
+              {c.logo ? (
+                <Image src={c.logo} alt={c.name} width={140} height={48} className="object-contain opacity-70 hover:opacity-100 transition-opacity" />
+              ) : (
+                <span className="font-medium">{c.name}</span>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -403,7 +452,7 @@ const Process = () => (
       <div className="relative">
         <div className="hidden lg:block absolute top-20 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-transparent via-blue-300 to-transparent"></div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {PROCESS_STEPS.map((s, i) => (
+          {PROCESS_STEPS.map((s) => (
             <div key={s.n} className="relative bg-white rounded-2xl p-6 border border-slate-200 hover:border-primary/40 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
               <div className="text-5xl font-black text-blue-100 mb-3">{s.n}</div>
               <div className="h-10 w-10 rounded-lg gradient-bg flex items-center justify-center mb-3 -mt-8 ml-auto shadow-lg shadow-blue-500/25">
@@ -414,6 +463,52 @@ const Process = () => (
             </div>
           ))}
         </div>
+      </div>
+    </div>
+  </section>
+)
+
+const Blog = () => (
+  <section id="blog" className="py-20 md:py-28 bg-white">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div className="max-w-2xl">
+          <Badge variant="outline" className="mb-4 text-primary border-blue-200 bg-blue-50">Insights & Case Studies</Badge>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">Ideas that <span className="gradient-text">help you decide better</span></h2>
+          <p className="mt-4 text-lg text-slate-600">Practical articles and case studies from our team — no fluff, just what matters for Kiwi businesses.</p>
+        </div>
+        <Button asChild variant="outline" className="hidden md:inline-flex border-2 border-slate-300 hover:border-primary hover:text-primary">
+          <a href="#contact">View All Articles <ArrowRight className="ml-2 h-4 w-4" /></a>
+        </Button>
+      </div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {BLOG_POSTS.map((p) => (
+          <Card key={p.slug} className="group overflow-hidden border-slate-200 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1">
+            <a href={`#blog-${p.slug}`} className="block">
+              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                <Image src={p.image} alt={p.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute top-3 left-3">
+                  <Badge className="bg-white/90 text-slate-900 hover:bg-white backdrop-blur-sm">{p.category}</Badge>
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
+                  <span className="inline-flex items-center gap-1"><Calendar className="h-3.5 w-3.5" />{p.date}</span>
+                  <span className="inline-flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{p.readTime}</span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-4">{p.excerpt}</p>
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                  <span className="text-xs text-slate-500">By {p.author}</span>
+                  <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
+                    Read more <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </div>
+              </CardContent>
+            </a>
+          </Card>
+        ))}
       </div>
     </div>
   </section>
@@ -460,20 +555,20 @@ const ContactSection = () => {
           <div className="relative grid lg:grid-cols-2 gap-10 items-start">
             <div className="text-white">
               <Badge variant="outline" className="mb-4 border-white/30 bg-white/10 text-white backdrop-blur-sm">Get In Touch</Badge>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Let's build something that actually moves your business forward.</h2>
-              <p className="mt-4 text-white/90 text-lg leading-relaxed">Book a free 30-minute consultation. We'll listen to what you need, share a few ideas, and tell you honestly if we're the right fit.</p>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Let&apos;s build something that actually moves your business forward.</h2>
+              <p className="mt-4 text-white/90 text-lg leading-relaxed">Book a free 30-minute consultation. We&apos;ll listen to what you need, share a few ideas, and tell you honestly if we&apos;re the right fit.</p>
               <div className="mt-8 space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="h-10 w-10 rounded-lg bg-white/15 backdrop-blur-sm flex items-center justify-center flex-shrink-0"><Phone className="h-5 w-5" /></div>
-                  <div><div className="text-sm text-white/70">Call us</div><a href="tel:0226059422" className="font-semibold hover:underline">022 605 9422</a></div>
+                  <div><div className="text-sm text-white/70">Call us</div><a href={`tel:${SITE.phoneRaw}`} className="font-semibold hover:underline">{SITE.phone}</a></div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-white/15 backdrop-blur-sm flex items-center justify-center flex-shrink-0"><Globe className="h-5 w-5" /></div>
-                  <div><div className="text-sm text-white/70">Website</div><a href="https://webfitt.com" className="font-semibold hover:underline">webfitt.com</a></div>
+                  <div className="h-10 w-10 rounded-lg bg-white/15 backdrop-blur-sm flex items-center justify-center flex-shrink-0"><Mail className="h-5 w-5" /></div>
+                  <div><div className="text-sm text-white/70">Email</div><a href={`mailto:${SITE.email}`} className="font-semibold hover:underline">{SITE.email}</a></div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="h-10 w-10 rounded-lg bg-white/15 backdrop-blur-sm flex items-center justify-center flex-shrink-0"><MapPin className="h-5 w-5" /></div>
-                  <div><div className="text-sm text-white/70">Visit</div><div className="font-semibold">Sandringham Road, Auckland, NZ</div></div>
+                  <div><div className="text-sm text-white/70">Visit</div><div className="font-semibold">{SITE.address}</div></div>
                 </div>
               </div>
             </div>
@@ -525,14 +620,14 @@ const Footer = () => (
         <div className="md:col-span-5">
           <div className="flex items-center gap-2 mb-4">
             <div className="relative h-12 w-12 bg-white rounded-lg p-1">
-              <Image src={LOGO_URL} alt="Webfit Solutions" fill className="object-contain p-1" />
+              <Image src={SITE.logoUrl} alt={SITE.shortName} fill className="object-contain p-1" />
             </div>
             <div>
-              <div className="text-white font-bold text-lg">Webfit Solutions Ltd.</div>
-              <div className="text-xs text-slate-400">Software &amp; Digital Solutions</div>
+              <div className="text-white font-bold text-lg">{SITE.company}</div>
+              <div className="text-xs text-slate-400">{SITE.tagline}</div>
             </div>
           </div>
-          <p className="text-slate-400 leading-relaxed max-w-md">100% Kiwi software partner in Aotearoa. We build practical, high-quality software for New Zealand businesses.</p>
+          <p className="text-slate-400 leading-relaxed max-w-md">{SITE.kiwiTag}. We build practical, high-quality software for New Zealand businesses.</p>
           <div className="mt-5 flex items-center gap-2 text-sm">
             <span className="text-lg">🇳🇿</span>
             <span className="text-slate-300">Proudly based in Auckland, New Zealand</span>
@@ -547,14 +642,15 @@ const Footer = () => (
         <div className="md:col-span-4">
           <h4 className="text-white font-semibold mb-4">Contact</h4>
           <ul className="space-y-3 text-sm">
-            <li className="flex items-start gap-3"><Globe className="h-4 w-4 mt-0.5 flex-shrink-0 text-sky-400" /><a href="https://webfitt.com" className="hover:text-white">webfitt.com</a></li>
-            <li className="flex items-start gap-3"><MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-sky-400" /><span>Sandringham Road, Auckland, New Zealand</span></li>
-            <li className="flex items-start gap-3"><Phone className="h-4 w-4 mt-0.5 flex-shrink-0 text-sky-400" /><a href="tel:0226059422" className="hover:text-white">022 605 9422</a></li>
+            <li className="flex items-start gap-3"><Globe className="h-4 w-4 mt-0.5 flex-shrink-0 text-sky-400" /><a href={SITE.websiteUrl} className="hover:text-white">{SITE.website}</a></li>
+            <li className="flex items-start gap-3"><MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-sky-400" /><span>{SITE.address}</span></li>
+            <li className="flex items-start gap-3"><Phone className="h-4 w-4 mt-0.5 flex-shrink-0 text-sky-400" /><a href={`tel:${SITE.phoneRaw}`} className="hover:text-white">{SITE.phone}</a></li>
+            <li className="flex items-start gap-3"><Mail className="h-4 w-4 mt-0.5 flex-shrink-0 text-sky-400" /><a href={`mailto:${SITE.email}`} className="hover:text-white">{SITE.email}</a></li>
           </ul>
         </div>
       </div>
       <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-slate-500">© {new Date().getFullYear()} Webfit Solutions Limited. All rights reserved.</p>
+        <p className="text-sm text-slate-500">© {new Date().getFullYear()} {SITE.company}. All rights reserved.</p>
         <p className="text-sm text-slate-500">Crafted with care in Auckland, Aotearoa.</p>
       </div>
     </div>
@@ -568,10 +664,11 @@ const App = () => {
       <Header />
       <Hero />
       <Services />
-      <Work />
       <Team />
+      <Testimonials />
       <WhyUs />
       <Process />
+      <Blog />
       <ContactSection />
       <Footer />
     </main>
