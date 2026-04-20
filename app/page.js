@@ -10,14 +10,20 @@ import { Label } from '@/components/ui/label'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { toast, Toaster } from 'sonner'
 import TiltCard from '@/components/TiltCard'
+import Reveal from '@/components/Reveal'
+import SmoothScroll from '@/components/SmoothScroll'
+import ScrollProgress from '@/components/ScrollProgress'
 import {
   Code2, Smartphone, Cloud, ShoppingCart, Layout, LineChart, ArrowRight, Phone, Mail, MapPin,
   Sparkles, Users, Shield, Rocket, Lightbulb, Handshake, Menu,
   Globe, Zap, Heart, Quote, Star, ChevronDown, Calendar, Clock, ArrowUpRight, MoveUpRight,
 } from 'lucide-react'
 
-// 3D scene loaded client-only (no SSR)
+// 3D scenes loaded client-only (no SSR)
 const HeroScene = dynamic(() => import('@/components/three/HeroScene'), { ssr: false })
+const BackgroundOrbs = dynamic(() => import('@/components/three/BackgroundOrbs'), { ssr: false })
+const ContactScene = dynamic(() => import('@/components/three/ContactScene'), { ssr: false })
+const ServiceIcon3D = dynamic(() => import('@/components/three/ServiceIcon3D'), { ssr: false })
 
 /* ============================================================================
    SITE CONFIG — edit this block to update website content
@@ -48,12 +54,12 @@ const NAV_LINKS = [
 ]
 
 const SERVICES = [
-  { icon: Code2, title: 'Custom Software', desc: 'Tailored web and business applications built around your exact workflow.', gradient: 'from-violet-500 to-fuchsia-500' },
-  { icon: Smartphone, title: 'Mobile Apps', desc: 'Beautiful iOS and Android apps that keep customers coming back.', gradient: 'from-pink-500 to-rose-500' },
-  { icon: Layout, title: 'Web Design & Dev', desc: 'Conversion-focused websites that look sharp and rank well on Google.', gradient: 'from-blue-500 to-cyan-500' },
-  { icon: Cloud, title: 'Cloud & SaaS', desc: 'Scalable cloud platforms on AWS, Azure and GCP — ship faster, scale safely.', gradient: 'from-indigo-500 to-purple-500' },
-  { icon: ShoppingCart, title: 'E-commerce', desc: 'Shopify, WooCommerce and custom stores that convert around the clock.', gradient: 'from-amber-500 to-orange-500' },
-  { icon: LineChart, title: 'Digital Strategy', desc: 'We turn business goals into a clear, costed technology roadmap.', gradient: 'from-emerald-500 to-teal-500' },
+  { icon: Code2, shape: 'box', title: 'Custom Software', desc: 'Tailored web and business applications built around your exact workflow.', gradient: 'from-violet-500 to-fuchsia-500' },
+  { icon: Smartphone, shape: 'sphere', title: 'Mobile Apps', desc: 'Beautiful iOS and Android apps that keep customers coming back.', gradient: 'from-pink-500 to-rose-500' },
+  { icon: Layout, shape: 'torus', title: 'Web Design & Dev', desc: 'Conversion-focused websites that look sharp and rank well on Google.', gradient: 'from-blue-500 to-cyan-500' },
+  { icon: Cloud, shape: 'cone', title: 'Cloud & SaaS', desc: 'Scalable cloud platforms on AWS, Azure and GCP — ship faster, scale safely.', gradient: 'from-indigo-500 to-purple-500' },
+  { icon: ShoppingCart, shape: 'octa', title: 'E-commerce', desc: 'Shopify, WooCommerce and custom stores that convert around the clock.', gradient: 'from-amber-500 to-orange-500' },
+  { icon: LineChart, shape: 'knot', title: 'Digital Strategy', desc: 'We turn business goals into a clear, costed technology roadmap.', gradient: 'from-emerald-500 to-teal-500' },
 ]
 
 const TEAM = [
@@ -273,18 +279,23 @@ const Services = () => (
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {SERVICES.map((s, i) => (
-          <TiltCard key={i} className="rounded-3xl" intensity={7}>
-            <div className="group relative rounded-3xl glass-card holo-border p-7 h-full overflow-hidden">
-              <div className={`h-12 w-12 rounded-2xl bg-gradient-to-br ${s.gradient} flex items-center justify-center mb-6 shadow-lg`}>
-                <s.icon className="h-6 w-6 text-white" strokeWidth={2.25} />
+          <Reveal key={i} delay={i * 80}>
+            <TiltCard className="rounded-3xl h-full" intensity={7}>
+              <div className="group relative rounded-3xl glass-card holo-border p-7 h-full overflow-hidden">
+                <div className="relative h-20 w-20 -ml-2 mb-4">
+                  <ServiceIcon3D shape={s.shape} />
+                  <div className={`absolute bottom-1 right-1 h-7 w-7 rounded-lg bg-gradient-to-br ${s.gradient} flex items-center justify-center shadow-lg ring-2 ring-white/80`}>
+                    <s.icon className="h-3.5 w-3.5 text-white" strokeWidth={2.5} />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-slate-950 tracking-tight mb-2">{s.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">{s.desc}</p>
+                <div className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-slate-900">
+                  Learn more <MoveUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </div>
               </div>
-              <h3 className="text-xl font-semibold text-slate-950 tracking-tight mb-2">{s.title}</h3>
-              <p className="text-sm text-slate-600 leading-relaxed">{s.desc}</p>
-              <div className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-slate-900">
-                Learn more <MoveUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </div>
-            </div>
-          </TiltCard>
+            </TiltCard>
+          </Reveal>
         ))}
       </div>
     </div>
@@ -340,7 +351,11 @@ const Team = () => (
         <p className="text-lg text-slate-600 max-w-md">Experienced, senior engineers and leaders — working directly with you from day one.</p>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
-        {TEAM.map(m => <TeamCard key={m.name} member={m} />)}
+        {TEAM.map((m, i) => (
+          <Reveal key={m.name} delay={i * 120}>
+            <TeamCard member={m} />
+          </Reveal>
+        ))}
       </div>
     </div>
   </section>
@@ -361,26 +376,28 @@ const Testimonials = () => (
 
       <div className="grid md:grid-cols-3 gap-5 mb-20">
         {TESTIMONIALS.map((t, i) => (
-          <TiltCard key={i} className="rounded-3xl" intensity={5}>
-            <div className="relative rounded-3xl glass-card holo-border p-7 h-full">
-              <Quote className="h-8 w-8 text-violet-400/40 mb-5" strokeWidth={2.5} />
-              <div className="flex gap-0.5 mb-5">
-                {Array.from({ length: t.rating || 5 }).map((_, idx) => (
-                  <Star key={idx} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <p className="text-slate-800 text-[15px] leading-relaxed mb-6">&ldquo;{t.quote}&rdquo;</p>
-              <div className="flex items-center gap-3 pt-5 border-t border-slate-200/60">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white font-semibold text-sm shadow-lg">
-                  {t.name.split(' ').map(n => n[0]).join('')}
+          <Reveal key={i} delay={i * 100}>
+            <TiltCard className="rounded-3xl h-full" intensity={5}>
+              <div className="relative rounded-3xl glass-card holo-border p-7 h-full">
+                <Quote className="h-8 w-8 text-violet-400/40 mb-5" strokeWidth={2.5} />
+                <div className="flex gap-0.5 mb-5">
+                  {Array.from({ length: t.rating || 5 }).map((_, idx) => (
+                    <Star key={idx} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                  ))}
                 </div>
-                <div>
-                  <div className="font-semibold text-slate-950 text-sm">{t.name}</div>
-                  <div className="text-xs text-slate-500">{t.role}{t.company ? ` · ${t.company}` : ''}</div>
+                <p className="text-slate-800 text-[15px] leading-relaxed mb-6">&ldquo;{t.quote}&rdquo;</p>
+                <div className="flex items-center gap-3 pt-5 border-t border-slate-200/60">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white font-semibold text-sm shadow-lg">
+                    {t.name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-slate-950 text-sm">{t.name}</div>
+                    <div className="text-xs text-slate-500">{t.role}{t.company ? ` · ${t.company}` : ''}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </TiltCard>
+            </TiltCard>
+          </Reveal>
         ))}
       </div>
 
@@ -566,6 +583,12 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="relative py-24 md:py-32 bg-mesh overflow-hidden">
+      {/* Decorative 3D torus knot floating in background */}
+      <div className="absolute inset-0 pointer-events-none opacity-70">
+        <div className="absolute right-[-10%] top-1/2 -translate-y-1/2 h-[600px] w-[600px]">
+          <ContactScene />
+        </div>
+      </div>
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
           <div>
@@ -690,18 +713,23 @@ const Footer = () => (
 
 const App = () => {
   return (
-    <main className="bg-[#fafafc]">
+    <main className="relative bg-[#fafafc] overflow-x-clip">
+      <SmoothScroll />
+      <ScrollProgress />
+      <BackgroundOrbs />
       <Toaster position="top-center" richColors />
       <Header />
-      <Hero />
-      <Services />
-      <Team />
-      <Testimonials />
-      <WhyUs />
-      <Process />
-      <Blog />
-      <ContactSection />
-      <Footer />
+      <div className="relative z-10">
+        <Hero />
+        <Services />
+        <Team />
+        <Testimonials />
+        <WhyUs />
+        <Process />
+        <Blog />
+        <ContactSection />
+        <Footer />
+      </div>
     </main>
   )
 }
