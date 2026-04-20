@@ -35,11 +35,11 @@ const SITE = {
   tagline: 'Software & Digital Solutions',
   logoUrl: 'https://customer-assets.emergentagent.com/job_9e1be266-7281-40e0-9ad8-d984708adecf/artifacts/gxak5mjz_webfit%20Solutions%20Limited%20New%20Logo.png',
   website: 'webfitt.com',
-  websiteUrl: 'https://webfitt.com',
+  websiteUrl: 'https://webfitt.co.nz',
   address: 'Sandringham Road, Auckland, New Zealand',
   phone: '022 605 9422',
   phoneRaw: '0226059422',
-  email: 'hello@webfitt.com',
+  email: 'webfittsolutions@gmail.com',
   kiwiTag: '100% Kiwi software partner in Aotearoa',
 }
 
@@ -66,39 +66,34 @@ const TEAM = [
   {
     name: 'Sangita Gupta',
     role: 'Founder & Managing Director',
-    image: 'https://images.pexels.com/photos/7580822/pexels-photo-7580822.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=700',
+    image: '/team/sangita.jpeg',   // ✅ matches your file
     shortBio: "Founder and Managing Director. Based in Auckland, holds a Master's in Science and leads both strategy and operations.",
     fullBio: "Sangita Gupta, the Founder and Managing Director of Webfit Solutions Limited, brings a unique blend of professional expertise and personal insight to the company. Based in Auckland, she holds a Master's Degree in Science and is a mother of two. Sangita understands the connection between humans and technology and focuses on delivering solutions that improve accuracy and usability. She leads both strategy and operations, ensuring high-quality software delivery.",
   },
   {
     name: 'Sheetal Bhusari',
     role: 'Technology Leader',
-    image: 'https://images.pexels.com/photos/7581115/pexels-photo-7581115.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=700',
+    image: '/team/sheetal.jpg',   // ✅ local image
     shortBio: 'Over 20 years in software development across leading multinationals before becoming an entrepreneur.',
     fullBio: 'With over 20 years of experience in software development, Sheetal has worked with leading multinational corporations before becoming an entrepreneur. Her expertise and innovative approach have driven many successful projects. At Webfit Solutions, she focuses on delivering high-quality, practical technology solutions.',
   },
   {
     name: 'Aarti Jangid',
     role: 'Senior Software Engineer',
-    image: 'https://images.unsplash.com/photo-1580643735948-c52d25d9c07d?crop=entropy&cs=srgb&fm=jpg&q=85&w=800',
+    image: '/team/aarti.jpg',   // ✅ local image
     shortBio: '10+ years in software development, specialising in Java and solving complex problems with modern tech.',
     fullBio: 'Aarti brings over 10 years of experience in software development. She specializes in Java technologies and has delivered high-quality solutions across multiple domains. She focuses on solving complex problems using modern technologies.',
   },
 ]
 
 const TESTIMONIALS = [
-  { quote: 'The Webfit team delivered exactly what we needed — on time and on budget. Their senior engineers felt like part of our own team from day one.', name: 'Client Name', role: 'Operations Manager', company: 'Placeholder Co. Ltd', rating: 5 },
-  { quote: 'We tried two other agencies before finding Webfit. The difference in quality, communication and outcomes was night and day.', name: 'Client Name', role: 'Founder & CEO', company: 'Placeholder Retail NZ', rating: 5 },
-  { quote: 'Proper Kiwi team, proper Kiwi results. Our new platform runs beautifully and our team loves it.', name: 'Client Name', role: 'Head of Digital', company: 'Placeholder Group', rating: 5 },
+  { quote: 'The Webfit team delivered exactly what we needed — on time and on budget. Their senior engineers felt like part of our own team from day one.', name: 'TaxiCService', role: 'P Singh', company: 'TaxcService Ltd', rating: 5 },
+  { quote: 'We tried two other agencies before finding Webfit. The difference in quality, communication and outcomes was night and day.', name: 'Shailesh B', role: 'Founder & CEO NZSME', company: 'NZSME ORG', rating: 5 },
+  { quote: 'Proper Kiwi team, proper Kiwi results. Our new platform runs beautifully and our team loves it.', name: 'Sam M', role: 'Head of Digital', company: 'Apex Models', rating: 5 },
 ]
 
 const CLIENTS = [
-  { name: 'Client Logo 1', logo: '' },
-  { name: 'Client Logo 2', logo: '' },
-  { name: 'Client Logo 3', logo: '' },
-  { name: 'Client Logo 4', logo: '' },
-  { name: 'Client Logo 5', logo: '' },
-  { name: 'Client Logo 6', logo: '' },
+  
 ]
 
 const BLOG_POSTS = [
@@ -402,7 +397,7 @@ const Testimonials = () => (
       </div>
 
       <div>
-        <p className="text-center text-xs uppercase tracking-[0.2em] text-slate-500 font-medium mb-8">Working with leading Kiwi businesses</p>
+        <p className="text-center text-xs uppercase tracking-[0.2em] text-slate-500 font-medium mb-8"></p>
         <div className="marquee">
           <div className="marquee-track">
             {[...CLIENTS, ...CLIENTS].map((c, i) => (
