@@ -1,0 +1,9 @@
+'use client'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+export default function PaymentPage(){
+  const [reference,setReference]=useState(''); const [status,setStatus]=useState('idle'); const [message,setMessage]=useState('')
+  useEffect(()=>{const p=new URLSearchParams(window.location.search); setReference(p.get('reference')||'')},[])
+  async function pay(e){e.preventDefault();setStatus('loading');setMessage('');try{const r=await fetch('/api/industry-experience/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({reference})});const d=await r.json();if(!r.ok)throw new Error(d.error||'Unable to start payment.');window.location.href=d.url}catch(err){setStatus('error');setMessage(err.message)}}
+  return <main className="min-h-screen bg-mesh px-4 py-24"><div className="glass-card mx-auto max-w-xl rounded-3xl p-8"><Link href="/industry-experience" className="text-sm font-bold text-violet-700">← Industry Experience</Link><h1 className="mt-6 text-3xl font-black">Programme payment</h1><p className="mt-3 text-slate-600">Payment becomes available after Webfit approves your application.</p><form onSubmit={pay} className="mt-7"><label className="text-sm font-bold">Application reference</label><input required value={reference} onChange={e=>setReference(e.target.value)} placeholder="WFS-EXP-2026-XXXXXXXX" className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3"/>{message&&<p className="mt-4 rounded-xl bg-rose-50 p-3 text-sm text-rose-700">{message}</p>}<button disabled={status==='loading'} className="btn-holo mt-5 w-full rounded-2xl px-5 py-3 font-bold">{status==='loading'?'Opening Stripe…':'Continue to secure payment'}</button></form><p className="mt-5 text-xs leading-5 text-slate-500">Payments are processed securely by Stripe. Questions: info@webfitt.co.nz · 022 605 9422.</p></div></main>
+}

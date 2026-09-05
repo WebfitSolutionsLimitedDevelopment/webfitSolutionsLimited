@@ -35,18 +35,19 @@ const SITE = {
   shortName: 'Webfit Solutions',
   tagline: 'Software & Digital Solutions',
   logoUrl: 'https://customer-assets.emergentagent.com/job_9e1be266-7281-40e0-9ad8-d984708adecf/artifacts/gxak5mjz_webfit%20Solutions%20Limited%20New%20Logo.png',
-  website: 'webfitt.com',
+  website: 'webfitt.co.nz',
   websiteUrl: 'https://webfitt.co.nz',
   address: 'Sandringham Road, Auckland, New Zealand',
   phone: '022 605 9422',
   phoneRaw: '0226059422',
-  email: 'webfittsolutions@gmail.com',
+  email: 'info@webfitt.co.nz',
   kiwiTag: '100% Kiwi software partner in Aotearoa',
 }
 
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
+  { label: 'Industry Experience', href: '/industry-experience' },
   { label: 'Team', href: '#team' },
   { label: 'Testimonials', href: '#testimonials' },
   { label: 'Blog', href: '#blog' },
