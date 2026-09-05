@@ -34,7 +34,7 @@ const SITE = {
   company: 'Webfit Solutions Limited',
   shortName: 'Webfit Solutions',
   tagline: 'Software & Digital Solutions',
-  logoUrl: 'https://customer-assets.emergentagent.com/job_9e1be266-7281-40e0-9ad8-d984708adecf/artifacts/gxak5mjz_webfit%20Solutions%20Limited%20New%20Logo.png',
+  logoUrl: '/webfit-logo.jpeg',
   website: 'webfitt.co.nz',
   websiteUrl: 'https://webfitt.co.nz',
   address: 'Sandringham Road, Auckland, New Zealand',
