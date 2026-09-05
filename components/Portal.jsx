@@ -9,6 +9,7 @@ import Reveal from '@/components/Reveal'
    straight through it — this is the "moment you scroll and it takes you
    somewhere new" beat between each chapter of the site.
    ============================================================================ */
+   // comments updated
 
 export default function Portal({ index, label, sublabel, accent = '#f472b6' }) {
   return (
