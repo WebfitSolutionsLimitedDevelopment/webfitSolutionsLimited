@@ -85,11 +85,62 @@ export async function POST(request) {
       note: 'Application submitted online',
     })
 
-
+    await sendApplicationPendingEmails({
+      application,
+      track: dbTrack,
+      pkg: dbPackage,
+    }).catch(error => {
+      console.error('[industry-experience] application email:', error)
+    })
 
     return NextResponse.json({ success: true, reference })
   } catch (error) {
     console.error('[industry-experience] apply:', error)
     return NextResponse.json({ error: 'Application could not be submitted. Please contact info@webfitt.co.nz.' }, { status: 500 })
   }
+}
+
+
+async function sendApplicationPendingEmails({ application, track, pkg }) {
+  const apiKey = process.env.RESEND_API_KEY || process.env.EMAIL_API_KEY
+  if (!apiKey) return
+
+  const from = process.env.INDUSTRY_EMAIL_FROM || process.env.EMAIL_FROM || 'Webfit Solution Limited <noreply@webfitt.co.nz>'
+  const adminTo = process.env.INDUSTRY_EMAIL_TO || process.env.EMAIL_ADMIN || 'info@webfitt.co.nz'
+  const fullName = `${application.first_name || ''} ${application.last_name || ''}`.trim()
+  const trackName = track?.name || 'Selected track'
+  const programme = pkg?.name || 'Industry Experience Programme'
+  const duration = pkg?.duration_months ? `${pkg.duration_months} month${pkg.duration_months > 1 ? 's' : ''}` : ''
+  const amount = pkg?.price_nzd ?? ''
+
+  const send = async payload => {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+    if (!response.ok) throw new Error(await response.text())
+  }
+
+  await Promise.all([
+    send({
+      from,
+      to: [application.email],
+      subject: `Application received · Payment pending · ${application.reference_code}`,
+      html: `<p>Hi ${esc(application.first_name)},</p><p>We have received your application for the Webfit Industry Experience Programme.</p><p><strong>Application reference:</strong> ${esc(application.reference_code)}<br/><strong>Track:</strong> ${esc(trackName)}<br/><strong>Programme:</strong> ${esc(programme)}${duration ? ` (${esc(duration)})` : ''}<br/><strong>Programme fee:</strong> NZ$${esc(amount)}</p><p><strong>Payment status: Pending.</strong></p><p>Your application will move to <strong>under review only after successful payment confirmation</strong>. If you did not complete payment, please return to the payment page to continue.</p><p>Webfit Solution Limited<br/>info@webfitt.co.nz<br/>022 605 9422</p>`,
+    }),
+    send({
+      from,
+      to: [adminTo],
+      reply_to: application.email,
+      subject: `New Industry Experience application · Payment pending · ${application.reference_code}`,
+      html: `<h2>New application received</h2><p><strong>${esc(fullName)}</strong><br/>${esc(application.email)} · ${esc(application.mobile)}</p><p><strong>Reference:</strong> ${esc(application.reference_code)}<br/><strong>Track:</strong> ${esc(trackName)}<br/><strong>Programme:</strong> ${esc(programme)}${duration ? ` (${esc(duration)})` : ''}<br/><strong>Programme fee:</strong> NZ$${esc(amount)}</p><p><strong>Payment status: Pending.</strong></p><p>Do not treat this application as paid or under review until Stripe payment confirmation is received.</p>`,
+    }),
+  ])
+}
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;',
+  }[char]))
 }
