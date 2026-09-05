@@ -17,7 +17,7 @@ import ScrollProgress from '@/components/ScrollProgress'
 import {
   Code2, Smartphone, Cloud, ShoppingCart, Layout, LineChart, ArrowRight, Phone, Mail, MapPin,
   Sparkles, Users, Shield, Rocket, Lightbulb, Handshake, Menu,
-  Globe, Zap, Heart, Quote, Star, ChevronDown, Calendar, Clock, ArrowUpRight, MoveUpRight,
+  Globe, Zap, Heart, Quote, Star, ChevronDown, Calendar, Clock, ArrowUpRight, MoveUpRight, Instagram, Facebook,
 } from 'lucide-react'
 
 // 3D scenes loaded client-only (no SSR)
@@ -697,6 +697,8 @@ const Footer = () => (
             <li className="flex items-start gap-3"><MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-pink-400" /><span>{SITE.address}</span></li>
             <li className="flex items-start gap-3"><Phone className="h-4 w-4 mt-0.5 flex-shrink-0 text-pink-400" /><a href={`tel:${SITE.phoneRaw}`} className="hover:text-white">{SITE.phone}</a></li>
             <li className="flex items-start gap-3"><Mail className="h-4 w-4 mt-0.5 flex-shrink-0 text-pink-400" /><a href={`mailto:${SITE.email}`} className="hover:text-white">{SITE.email}</a></li>
+            <li className="flex items-start gap-3"><Instagram className="h-4 w-4 mt-0.5 flex-shrink-0 text-pink-400" /><a href="https://www.instagram.com/webfittsolutions?igsi=ZTZsOXBmMm50cDZl&utm_source=qr" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a></li>
+            <li className="flex items-start gap-3"><Facebook className="h-4 w-4 mt-0.5 flex-shrink-0 text-pink-400" /><a href="https://www.facebook.com/share/g/18D4kC9A5W/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Facebook</a></li>
           </ul>
         </div>
       </div>
