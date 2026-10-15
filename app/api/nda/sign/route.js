@@ -16,7 +16,7 @@ export async function POST(request) {
       return NextResponse.json({error:'Please provide valid details and accept the agreement.'},{status:400});
     }
     const resendKey=process.env.RESEND_API_KEY;
-    const sender=process.env.NDA_FROM_EMAIL || 'Webfit Solutions <info@webfitt.co.nz>';
+    const sender=process.env.NDA_FROM_EMAIL || 'Webfit Solutions Limited <info@webfitt.co.nz>';
     const admin=process.env.NDA_NOTIFY_EMAIL || 'info@webfitt.co.nz';
     if(!resendKey) return NextResponse.json({error:'Agreement service is not configured. Please contact us.'},{status:503});
     const now=new Date(), id=randomUUID();
@@ -28,7 +28,7 @@ export async function POST(request) {
     const send=async(to,subject,html)=>{const response=await fetch('https://api.resend.com/emails',{method:'POST',headers,body:JSON.stringify({from:sender,to:[to],subject,html,attachments:[attachment]})});if(!response.ok)throw Error('Email provider returned '+response.status);};
     const safe=(v)=>v.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const results=await Promise.allSettled([
-      send(email,'Your signed Webfit Solutions agreement','<p>Hi '+safe(name)+',</p><p>Thank you for signing. Your signed agreement is attached.</p><p>Reference: '+id+'</p><p>Webfit Solutions Limited</p>'),
+      send(email,'Your signed Webfit Solutions Limited agreement','<p>Hi '+safe(name)+',</p><p>Thank you for signing. Your signed agreement is attached.</p><p>Reference: '+id+'</p><p>Webfit Solutions Limited</p>'),
       send(admin,'NDA signed: '+safe(name),'<p>A new agreement has been signed.</p><p>Name: '+safe(name)+'<br>Email: '+safe(email)+'<br>Organisation: '+safe(organisation)+'<br>Engagement: '+safe(category)+'<br>Date: '+nzDate+'<br>Reference: '+id+'</p>')
     ]);
     if(results.some(r=>r.status==='rejected')) { console.error('NDA email delivery incomplete',results.map(r=>r.status)); return NextResponse.json({success:true,reference:id,pdfBase64:pdf.toString('base64'),emailStatus:'delayed'}); }
