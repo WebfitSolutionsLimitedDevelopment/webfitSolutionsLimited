@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { randomUUID } from 'crypto';
-import { COMPANY, NDA_VERSION, agreementText } from '@/lib/nda-agreement';
+import { COMPANY, NDA_VERSION, clauses } from '@/lib/nda-agreement';
 import { signedAgreementPdf } from '@/lib/nda-pdf';
 export const runtime = 'nodejs';
 const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
