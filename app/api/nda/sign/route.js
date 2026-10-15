@@ -12,7 +12,7 @@ export async function POST(request) {
     const email = String(payload.email || '').trim().toLowerCase().slice(0,254);
     const organisation = String(payload.organisation || '').trim().slice(0,180);
     const category = String(payload.category || '');
-    if(name.length<3 || !validEmail.test(email) || !categories.includes(category) || payload.accepted!==true || payload.website) {
+    if(name.length<3 || organisation.length<2 || !validEmail.test(email) || !categories.includes(category) || payload.accepted!==true || payload.website) {
       return NextResponse.json({error:'Please provide valid details and accept the agreement.'},{status:400});
     }
     const resendKey=process.env.RESEND_API_KEY;
@@ -28,7 +28,7 @@ export async function POST(request) {
     const safe=(v)=>v.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     const results=await Promise.allSettled([
       send(email,'Your signed Webfit Solutions Limited agreement','<p>Hi '+safe(name)+',</p><p>Thank you for signing. Your signed agreement is attached.</p><p>Reference: '+id+'</p><p>Webfit Solutions Limited</p>'),
-      send(admin,'NDA signed: '+safe(name),'<p>A new agreement has been signed.</p><p>Name: '+safe(name)+'<br>Email: '+safe(email)+'<br>Organisation: '+safe(organisation)+'<br>Engagement: '+safe(category)+'<br>Date: '+nzDate+'<br>Reference: '+id+'</p>')
+      send(admin,'NDA signed: '+safe(name),'<p>A new agreement has been signed.</p><p>Name: '+safe(name)+'<br>Email: '+safe(email)+'<br>Organisation / Individual: '+safe(organisation)+'<br>Engagement: '+safe(category)+'<br>Date: '+nzDate+'<br>Reference: '+id+'</p>')
     ]);
     if(results.some(r=>r.status==='rejected')) { console.error('NDA email delivery incomplete',results.map(r=>r.status)); return NextResponse.json({success:true,reference:id,pdfBase64:pdf.toString('base64'),emailStatus:'delayed'}); }
     return NextResponse.json({success:true,reference:id,pdfBase64:pdf.toString('base64'),emailStatus:'sent'});
