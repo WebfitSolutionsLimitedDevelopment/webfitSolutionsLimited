@@ -21,8 +21,7 @@ export async function POST(request) {
     if(!resendKey) return NextResponse.json({error:'Agreement service is not configured. Please contact us.'},{status:503});
     const now=new Date(), id=randomUUID();
     const nzDate=new Intl.DateTimeFormat('en-NZ',{timeZone:'Pacific/Auckland',day:'2-digit',month:'long',year:'numeric'}).format(now);
-    const document=[agreementText(),'','SIGNED ACCEPTANCE','Reference: '+id,'Agreement version: '+NDA_VERSION,'Engagement: '+category,'Full legal name: '+name,'Email: '+email,'Organisation: '+(organisation||'Not supplied'),'Date (New Zealand): '+nzDate,'UTC timestamp: '+now.toISOString(),'Electronic acceptance: I have read and agree to the terms.','Company: '+COMPANY].join('\n');
-    const pdf=signedAgreementPdf(document);
+    const pdf=await signedAgreementPdf({clauses,name,email,organisation,category,id,nzDate,utc:now.toISOString(),version:NDA_VERSION});
     const attachment={filename:'webfit-signed-agreement-'+id+'.pdf',content:pdf.toString('base64')};
     const headers={Authorization:'Bearer '+resendKey,'Content-Type':'application/json'};
     const send=async(to,subject,html)=>{const response=await fetch('https://api.resend.com/emails',{method:'POST',headers,body:JSON.stringify({from:sender,to:[to],subject,html,attachments:[attachment]})});if(!response.ok)throw Error('Email provider returned '+response.status);};
