@@ -21,7 +21,7 @@ export default function NdaPage(){
   const a=document.createElement('a');a.href=url;a.download='webfit-signed-agreement-'+result.reference+'.pdf';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);
  }
  return <main className="min-h-screen bg-slate-50 text-slate-900">
-  <header className="bg-slate-950 text-white"><div className="max-w-4xl mx-auto px-5 py-6 flex items-center justify-between gap-4"><a href="/" className="font-bold text-lg">WEBFIT <span className="text-sky-400">SOLUTIONS</span></a><span className="text-xs text-slate-300">Secure agreement signing</span></div></header>
+  <header className="bg-slate-950 text-white"><div className="max-w-4xl mx-auto px-5 py-6 flex flex-wrap items-center justify-between gap-3"><a href="/" className="font-bold text-base sm:text-lg whitespace-nowrap">WEBFIT <span className="text-sky-400">SOLUTIONS</span> LIMITED</a><span className="text-xs text-slate-300">Secure agreement signing</span></div></header>
   <div className="max-w-4xl mx-auto px-5 py-10">
    <div className="mb-8"><p className="text-sm font-semibold text-blue-700 uppercase tracking-wide">Electronic agreement</p><h1 className="text-3xl md:text-4xl font-bold mt-2">Confidentiality, Media Consent & Engagement Agreement</h1><p className="text-slate-600 mt-3">Please read the terms before signing. Your signed copy will be emailed to you.</p></div>
    <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm mb-7"><div className="flex flex-wrap justify-between gap-2 border-b pb-4 mb-6 text-sm"><strong>{COMPANY}</strong><span className="text-slate-500">Version {NDA_VERSION}</span></div>
