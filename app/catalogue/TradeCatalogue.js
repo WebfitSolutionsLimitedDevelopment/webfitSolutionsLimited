@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Search, Minus, Plus, Trash2, CheckCircle2, AlertCircle, Loader2, ArrowRight, ShoppingBasket } from 'lucide-react'
 import { CATEGORIES, PRODUCTS, PRODUCT_BY_ID } from '@/lib/trade-catalogue'
+import ProductArt from './ProductArt'
 
 const MAX_QTY = 9999
 const BUSINESS_TYPES = ['Retail store / supermarket', 'Wholesaler / distributor', 'Restaurant / caterer', 'Online store', 'Other']
@@ -142,15 +143,16 @@ export default function TradeCatalogue() {
                 {visible.filter((p) => p.category === c.id).map((p) => {
                   const n = qty[p.id] || 0
                   return (
-                    <li key={p.id} className={`flex flex-col justify-between gap-4 rounded-3xl glass-card p-5 ${n > 0 ? 'ring-2 ring-violet-400' : ''}`}>
-                      <div>
+                    <li key={p.id} className={`flex flex-col justify-between gap-4 overflow-hidden rounded-3xl glass-card p-3 pb-5 ${n > 0 ? 'ring-2 ring-violet-400' : ''}`}>
+                      <ProductArt id={p.id} name={p.name} className="block aspect-[16/9] w-full rounded-2xl" />
+                      <div className="px-2">
                         <h4 className="text-base font-semibold text-slate-950">{p.name}</h4>
                         <dl className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
                           <div><dt className="inline text-slate-400">Pack </dt><dd className="inline font-medium">{p.packSize}</dd></div>
                           <div><dt className="inline text-slate-400">Shelf life </dt><dd className="inline font-medium">{p.shelfLife}</dd></div>
                         </dl>
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between px-2">
                         {n === 0 ? (
                           <button type="button" onClick={() => setItem(p.id, 1)} className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50">
                             <Plus className="h-4 w-4" aria-hidden="true" /> Add to request
