@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { clauses, COMPANY, NDA_VERSION } from '@/lib/nda-agreement';
 const categories=['Media interview / podcast','Event coverage / media','Video editing / contractor','Website / software project','Business / other engagement'];
 export default function NdaPage(){
- const [form,setForm]=useState({name:'',email:'',organisation:'',category:categories[0],accepted:false,website:''});
+ const [form,setForm]=useState({name:'',email:'',organisation:'',category:categories[0],accepted:false,privacyAccepted:false,website:''});
  const [status,setStatus]=useState('idle'),[error,setError]=useState(''),[result,setResult]=useState(null);
  const set=(key,value)=>setForm(f=>({...f,[key]:value}));
  const today=new Intl.DateTimeFormat('en-NZ',{timeZone:'Pacific/Auckland',day:'2-digit',month:'long',year:'numeric'}).format(new Date());
@@ -37,8 +37,9 @@ export default function NdaPage(){
     <div className="hidden" aria-hidden="true"><input tabIndex={-1} value={form.website} onChange={e=>set('website',e.target.value)} autoComplete="off"/></div>
     <div className="rounded-lg bg-slate-50 p-4 text-sm"><span className="font-semibold">Date (New Zealand): </span>{today}<p className="text-slate-500 mt-1">The official date and timestamp are recorded when you submit.</p></div>
     <label className="flex items-start gap-3 text-sm leading-6"><input type="checkbox" required checked={form.accepted} onChange={e=>set('accepted',e.target.checked)} className="mt-1 h-5 w-5"/><span>I have read and agree to this agreement. I intend to sign electronically and confirm I am authorised to sign for any organisation identified above.</span></label>
+    <label className="flex items-start gap-3 text-sm leading-6"><input type="checkbox" required checked={form.privacyAccepted} onChange={e=>set('privacyAccepted',e.target.checked)} className="mt-1 h-5 w-5"/><span>I have read and accept the <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-700 underline underline-offset-2">Privacy Policy</a>.</span></label>
     {error&&<p role="alert" className="text-red-700 text-sm">{error}</p>}
-    <button type="submit" disabled={status==='sending'||!form.accepted} className="w-full rounded-lg bg-blue-700 hover:bg-blue-800 disabled:opacity-50 text-white py-4 font-semibold">{status==='sending'?'Submitting securely...':'Accept & Sign Agreement'}</button>
+    <button type="submit" disabled={status==='sending'||!form.accepted||!form.privacyAccepted} className="w-full rounded-lg bg-blue-700 hover:bg-blue-800 disabled:opacity-50 text-white py-4 font-semibold">{status==='sending'?'Submitting securely...':'Accept & Sign Agreement'}</button>
     <p className="text-xs text-slate-500">Your signing details are used to evidence and administer this agreement. For questions, contact info@webfitt.co.nz.</p>
    </form>}
   </div>
