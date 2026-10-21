@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Search, Minus, Plus, Trash2, CheckCircle2, AlertCircle, Loader2, ArrowRight, ShoppingBasket } from 'lucide-react'
 import { CATEGORIES, PRODUCTS, PRODUCT_BY_ID } from '@/lib/trade-catalogue'
-import ProductArt from './ProductArt'
+import Image from 'next/image'
 
 const MAX_QTY = 9999
 const BUSINESS_TYPES = ['Retail store / supermarket', 'Wholesaler / distributor', 'Restaurant / caterer', 'Online store', 'Other']
@@ -144,7 +144,9 @@ export default function TradeCatalogue() {
                   const n = qty[p.id] || 0
                   return (
                     <li key={p.id} className={`flex flex-col justify-between gap-4 overflow-hidden rounded-3xl glass-card p-3 pb-5 ${n > 0 ? 'ring-2 ring-violet-400' : ''}`}>
-                      <ProductArt id={p.id} name={p.name} className="block aspect-[16/9] w-full rounded-2xl" />
+                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-white">
+                        <Image src={`/trade-products/${p.id}.jpg`} alt={`${p.name}, ${p.packSize} pack`} fill sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw" className="object-contain p-2" />
+                      </div>
                       <div className="px-2">
                         <h4 className="text-base font-semibold text-slate-950">{p.name}</h4>
                         <dl className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
