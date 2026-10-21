@@ -46,7 +46,7 @@ const sections = [
           </li>
           <li>
             <strong>Payments</strong>: payment status and transaction references. Card details are entered directly
-            with our payment provider, Stripe, and are not received or stored by us.
+            with our secure payment provider and are not received or stored by us.
           </li>
           <li>
             <strong>Electronic agreements</strong>: when you sign an agreement such as our NDA, your full legal name,
@@ -91,15 +91,14 @@ const sections = [
       <>
         <p>We use trusted service providers to run our website and business. They handle information on our behalf and only for that purpose:</p>
         <ul>
-          <li><strong>Vercel</strong>: website hosting;</li>
-          <li><strong>Supabase</strong>: database storage for programme applications (hosted in Australia);</li>
-          <li><strong>Resend</strong>: sending website emails, such as enquiry notifications, confirmations and signed agreements;</li>
-          <li><strong>Stripe</strong>: processing programme payments; and</li>
-          <li>our email and office software providers.</li>
+          <li>website hosting and data storage;</li>
+          <li>email delivery, such as enquiry notifications, confirmations and signed agreements;</li>
+          <li>secure payment processing; and</li>
+          <li>email and office software.</li>
         </ul>
         <p>
-          Some of these providers store or process information outside New Zealand, including in Australia and the
-          United States. We choose providers that protect information to a standard comparable to New Zealand law.
+          Some of these providers may store or process information outside New Zealand. We choose providers that
+          protect information to a standard comparable to New Zealand law.
         </p>
         <p>
           We will only share your information with anyone else, such as a potential buyer, partner or freight
