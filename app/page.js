@@ -48,6 +48,7 @@ const NAV_LINKS = [
   { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
   { label: 'Industry Experience', href: '/industry-experience' },
+  { label: 'NZ Market Entry', href: '/new-zealand-market-entry' },
   { label: 'Team', href: '#team' },
   { label: 'Testimonials', href: '#testimonials' },
   { label: 'Blog', href: '#blog' },
